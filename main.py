@@ -1,7 +1,7 @@
 
 import pandas as pd
 import numpy as np
-from xgboost import XGBClassifier
+#from xgboost import XGBClassifier
 from sklearn.cluster import KMeans
 
 prob_data=pd.read_csv('problem_data.csv')
@@ -83,24 +83,12 @@ print test_X.dtypes
 
 n_classes=len(np.unique(target))
 
-param = {
-    'eta': 0.3,  # the training step for each iteration
-    'silent': 1,  # logging mode - quiet
-    'objective': 'multi:softprob',  # error evaluation for multiclass training
-    'num_class': 6 }  # the number of classes that exist in this datset
 
-
-
-xgb = XGBClassifier(num_class=6,eta=0.3,silent=1,max_depth=50,learning_rate=0.08,n_estimators=6)
-xgb.fit(train_X,target)
-output=xgb.predict(test_X)
-
-'''
 n_clusters = len(np.unique(target))
 clf = KMeans(n_clusters = n_clusters)
 clf.fit(train_X)
 output=clf.predict(test_X)
-'''
+
 my_submission = pd.DataFrame({'ID':id ,'attempts_range': output})
 my_submission.to_csv('submission.csv', index=False)
 
